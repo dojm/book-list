@@ -23,6 +23,14 @@ UI.prototype.addBookToList = function(book){
     `
     list.appendChild(row);
 }
+
+// Delete book
+UI.prototype.deleteBook = function(target){
+  if(target.className === 'delete') {
+    target.parentElement.parentElement.remove();
+  }
+}
+
 // create prototype method - clear fields
 UI.prototype.clearFields = function() {
     document.getElementById('title').value = '';
@@ -62,6 +70,8 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
     // 3) Need to add book to the UI - Instantiate UI object
     const ui = new UI();
 
+    console.log(ui);
+
     // VALIDATE
     if(title === '' || author === '' || isbn === '') {
         // Error alert
@@ -81,4 +91,18 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
     }
 
     e.preventDefault();
+});
+
+// Event listener for add delete
+document.getElementById('book-list').addEventListener('click', function(e) {
+
+  // Instantiate UI
+  const ui = new UI();
+
+  ui.deleteBook(e.target);
+
+  // Show message
+  ui.showAlert('Book Removed', 'success');
+
+  e.preventDefault();
 });
