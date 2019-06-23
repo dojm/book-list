@@ -7,6 +7,8 @@ function Book(title, author, isbn){
 
 // UI Constructor 
 function UI(){}
+
+// UI Functions:
 // 3.5) create prototype method for UI - add book to list
 UI.prototype.addBookToList = function(book){
     const list = document.getElementById('book-list');
@@ -16,10 +18,10 @@ UI.prototype.addBookToList = function(book){
 
     // Insert col
     row.innerHTML = `
-        <td>${book.title}</td>
-        <td>${book.author}</td>
-        <td>${book.isbn}</td>
-        <td><a href="#" class="delete">X</a></td>
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.isbn}</td>
+      <td><a href="#" class="delete">X</a></td>
     `
     list.appendChild(row);
 }
@@ -56,21 +58,19 @@ UI.prototype.showAlert = function(message, className) {
     }, 3000);
 }
 
-// Event listeners
+// Event listener - Adding a book
 document.getElementById('book-form').addEventListener('submit', function(e) {
 
     // 1) Get form values
     const title = document.getElementById('title').value,
-        author = document.getElementById('author').value,
-        isbn = document.getElementById('isbn').value;
+         author = document.getElementById('author').value,
+           isbn = document.getElementById('isbn').value;
 
     // 2) Instantiate book constructor/object
     const book = new Book(title, author, isbn);
 
-    // 3) Need to add book to the UI - Instantiate UI object
+    // 3) Instantiate UI object
     const ui = new UI();
-
-    console.log(ui);
 
     // VALIDATE
     if(title === '' || author === '' || isbn === '') {
@@ -79,21 +79,21 @@ document.getElementById('book-form').addEventListener('submit', function(e) {
 
     }else{
 
-    // 4) Add book to list
-    ui.addBookToList(book);
+      // 4) Add book to list
+      ui.addBookToList(book);
+      
+      // Show success
+      ui.showAlert('Book Added!', 'success');
 
-    // Show success
-    ui.showAlert('Book Added!', 'success');
-
-    // 5) Clear fields
-    ui.clearFields();
+      // 5) Clear fields
+      ui.clearFields();
 
     }
 
     e.preventDefault();
 });
 
-// Event listener for add delete
+// Event listener - Deleting a book
 document.getElementById('book-list').addEventListener('click', function(e) {
 
   // Instantiate UI
